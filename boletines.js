@@ -7,6 +7,14 @@ const boletines = [
         descripcion: "Evento que lo cambia todo",
         destacado: true,
         archivo: "boletin1.html"
+    },
+    {
+        id: 1,
+        titulo: "Un Dios refrescante",
+        fecha: "2023-5-30",
+        descripcion: "Arreglos por aqui y por allá",
+        destacado: true,
+        archivo: "boletin2.html"
     }
 ];
 
