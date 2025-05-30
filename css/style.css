@@ -1,0 +1,416 @@
+/* Estilos generales */
+:root {
+    --main-red: #E82A2A;
+    --dark-red: #A01010;
+    --accent-orange: #FF6B00;
+    --bg-dark: #1A0005;
+    --manga-yellow: #FFF056;
+    --manga-light: #FFE8E8;
+    --text-color: #FFE8E8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Oswald', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    background-image: radial-gradient(circle at 20% 30%, rgba(232, 42, 42, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 80% 70%, rgba(255, 107, 0, 0.15) 0%, transparent 25%);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+a {
+    text-decoration: none;
+    color: var(--manga-yellow);
+}
+
+/* Contenedor principal */
+.manga-container {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.manga-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 15px;
+    background: linear-gradient(90deg,
+            var(--main-red) 0%,
+            var(--accent-orange) 50%,
+            var(--main-red) 100%);
+    box-shadow: 0 2px 10px rgba(232, 42, 42, 0.7);
+}
+
+/* Efecto de velocidad manga */
+.speed-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: repeating-linear-gradient(45deg,
+            transparent,
+            transparent 20px,
+            rgba(232, 42, 42, 0.2) 20px,
+            rgba(232, 42, 42, 0.2) 22px);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+/* Header */
+.manga-header {
+    text-align: center;
+    margin: 30px 0 40px;
+    position: relative;
+}
+
+.manga-title {
+    font-family: 'Bangers', cursive;
+    color: var(--manga-yellow);
+    font-size: 3.5rem;
+    text-shadow: 4px 4px 0 var(--dark-red),
+        6px 6px 0 rgba(0, 0, 0, 0.3);
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    -webkit-text-stroke: 1px var(--dark-red);
+    transform: rotate(-2deg);
+}
+
+.manga-subtitle {
+    display: inline-block;
+    background-color: var(--main-red);
+    color: white;
+    padding: 5px 20px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    box-shadow: 0 3px 0 var(--dark-red);
+    margin-top: 10px;
+}
+
+/* Tarjetas de noticias/boletines */
+.manga-news-card {
+    background: linear-gradient(145deg, rgba(40, 0, 5, 0.9) 0%, rgba(80, 0, 10, 0.7) 100%);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--main-red);
+    box-shadow: 0 8px 20px rgba(160, 16, 16, 0.4),
+        inset 0 0 15px rgba(255, 107, 0, 0.2);
+}
+
+.manga-news-card::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    transform: rotate(30deg);
+}
+
+.manga-news-card.featured {
+    border: 3px solid var(--manga-yellow);
+    box-shadow: 0 8px 25px rgba(160, 16, 16, 0.6),
+        inset 0 0 20px rgba(255, 240, 86, 0.3);
+}
+
+/* Badges */
+.news-badge {
+    font-family: 'Bangers', cursive;
+    display: inline-block;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 1rem;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+    transform: rotate(-3deg);
+}
+
+.new-badge {
+    background-color: var(--manga-yellow);
+    color: var(--dark-red);
+    border: 2px solid var(--accent-orange);
+}
+
+.blood-badge {
+    background-color: var(--main-red);
+    color: white;
+    border: 2px solid var(--dark-red);
+}
+
+.legend-badge {
+    background-color: var(--bg-dark);
+    color: var(--accent-orange);
+    border: 2px solid var(--main-red);
+}
+
+/* Títulos */
+.news-title {
+    font-family: 'Bangers', cursive;
+    color: var(--manga-yellow);
+    font-size: 2rem;
+    margin: 10px 0 15px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 var(--dark-red);
+    position: relative;
+    display: inline-block;
+}
+
+.news-title::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--main-red), var(--accent-orange));
+}
+
+.section-title {
+    font-family: 'Bangers', cursive;
+    color: var(--manga-yellow);
+    font-size: 1.8rem;
+    margin: 20px 0 15px;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 var(--dark-red);
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--main-red), var(--accent-orange));
+}
+
+/* Contenido */
+.news-content, .section-content {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 1.5rem;
+}
+
+.intro-text {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Efectos de texto */
+.manga-effects {
+    position: absolute;
+    font-family: 'Bangers', cursive;
+    color: rgba(255, 240, 86, 0.1);
+    font-size: 6rem;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.effect-1 {
+    top: 50px;
+    right: 30px;
+    transform: rotate(15deg);
+}
+
+.effect-2 {
+    bottom: 20px;
+    left: 20px;
+    transform: rotate(-10deg);
+}
+
+.effect-3 {
+    top: 100px;
+    left: 40px;
+    transform: rotate(-5deg);
+}
+
+/* Artículo */
+.manga-article {
+    background: linear-gradient(145deg, rgba(40, 0, 5, 0.9) 0%, rgba(80, 0, 10, 0.7) 100%);
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--main-red);
+    box-shadow: 0 8px 20px rgba(160, 16, 16, 0.4),
+        inset 0 0 15px rgba(255, 107, 0, 0.2);
+}
+
+.article-meta {
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--accent-orange);
+}
+
+.meta-item {
+    display: inline-block;
+    margin-right: 1.5rem;
+}
+
+.article-section {
+    margin: 2.5rem 0;
+    position: relative;
+}
+
+.manga-quote {
+    background: rgba(160, 16, 16, 0.3);
+    border-left: 4px solid var(--manga-yellow);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    position: relative;
+}
+
+.manga-quote::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 5px;
+    font-size: 3rem;
+    color: rgba(255, 240, 86, 0.2);
+    font-family: serif;
+}
+
+/* Botones */
+.manga-button {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 30px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 1rem;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+}
+
+.manga-button:not(.disabled) {
+    background-color: var(--main-red);
+    color: white;
+    box-shadow: 0 3px 0 var(--dark-red);
+}
+
+.manga-button:not(.disabled):hover {
+    background-color: var(--accent-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--dark-red);
+}
+
+.manga-button.disabled {
+    background-color: #333;
+    color: #666;
+    cursor: not-allowed;
+}
+
+.back-button {
+    background-color: var(--bg-dark);
+    color: var(--manga-yellow);
+    border: 2px solid var(--main-red);
+    margin-right: 1rem;
+}
+
+.share-button {
+    background-color: var(--main-red);
+    color: white;
+}
+
+/* Footer */
+.manga-footer {
+    background: linear-gradient(145deg, rgba(40, 0, 5, 0.9) 0%, rgba(80, 0, 10, 0.7) 100%);
+    padding: 2rem;
+    text-align: center;
+    border-top: 3px solid var(--main-red);
+    margin-top: 2rem;
+}
+
+.footer-title {
+    font-family: 'Bangers', cursive;
+    color: var(--manga-yellow);
+    font-size: 2rem;
+    text-shadow: 2px 2px 0 var(--dark-red);
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.footer-title span {
+    color: var(--accent-orange);
+}
+
+/* Listas */
+ul {
+    margin: 1rem 0 1rem 2rem;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .manga-container {
+        padding: 15px;
+    }
+    
+    .manga-title {
+        font-size: 2.5rem;
+    }
+    
+    .manga-subtitle {
+        font-size: 1rem;
+    }
+    
+    .news-title, .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .manga-effects {
+        font-size: 4rem;
+    }
+    
+    .article-actions {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .back-button {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+}
