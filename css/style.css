@@ -414,3 +414,37 @@ li {
         margin-bottom: 1rem;
     }
 }
+/* Añade esto al final de tu archivo CSS existente */
+
+/* Estilos para la cuadrícula de boletines */
+.boletines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+/* Efecto hover para las tarjetas */
+.manga-news-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.manga-news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(160, 16, 16, 0.6),
+        inset 0 0 20px rgba(255, 107, 0, 0.3);
+}
+
+/* Estilos para el botón en hover */
+.manga-button:not(.disabled):hover {
+    background-color: var(--accent-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--dark-red);
+}
+
+/* Responsive para la cuadrícula */
+@media (max-width: 768px) {
+    .boletines-grid {
+        grid-template-columns: 1fr;
+    }
+}
