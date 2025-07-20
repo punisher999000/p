@@ -3,7 +3,7 @@ const boletines = [
     {
         id: 1,
         titulo: "La Revuelta",
-        fecha: "2023-5-26",
+        fecha: "2025-5-26",
         descripcion: "Evento que lo cambia todo",
         destacado: true,
         archivo: "boletin1.html"
@@ -11,10 +11,18 @@ const boletines = [
     {
         id: 1,
         titulo: "Un Dios refrescante",
-        fecha: "2023-5-30",
+        fecha: "2025-5-30",
         descripcion: "Arreglos por aqui y por allá",
         destacado: true,
         archivo: "boletin2.html"
+    },
+    {
+        id: 1,
+        titulo: "Vuelve la leyenda",
+        fecha: "2025-7-19",
+        descripcion: "Vuelve la leyenda y con mas animo que nunca",
+        destacado: true,
+        archivo: "boletin3.html"
     }
 ];
 
