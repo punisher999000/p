@@ -1,4 +1,4 @@
-/* Estilos generales */
+/* Estilos generales - Versión mejorada */
 :root {
     --main-red: #E82A2A;
     --dark-red: #A01010;
@@ -7,6 +7,9 @@
     --manga-yellow: #FFF056;
     --manga-light: #FFE8E8;
     --text-color: #FFE8E8;
+    --glow-effect: 0 0 10px rgba(232, 42, 42, 0.7);
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-medium: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
@@ -21,29 +24,40 @@ body {
     color: var(--text-color);
     margin: 0;
     padding: 0;
-    background-image: radial-gradient(circle at 20% 30%, rgba(232, 42, 42, 0.15) 0%, transparent 25%),
+    background-image: 
+        radial-gradient(circle at 20% 30%, rgba(232, 42, 42, 0.15) 0%, transparent 25%),
         radial-gradient(circle at 80% 70%, rgba(255, 107, 0, 0.15) 0%, transparent 25%);
     line-height: 1.6;
+    min-height: 100vh;
+    scroll-behavior: smooth;
 }
 
 h1, h2, h3, h4 {
     font-weight: 700;
     line-height: 1.2;
+    letter-spacing: 0.5px;
 }
 
 a {
     text-decoration: none;
     color: var(--manga-yellow);
+    transition: var(--transition-fast);
 }
 
-/* Contenedor principal */
+a:hover {
+    color: var(--accent-orange);
+    text-shadow: var(--glow-effect);
+}
+
+/* Contenedor principal mejorado */
 .manga-container {
-    max-width: 850px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 20px;
     position: relative;
     overflow: hidden;
     min-height: 100vh;
+    backdrop-filter: blur(2px);
 }
 
 .manga-container::before {
@@ -57,43 +71,69 @@ a {
             var(--main-red) 0%,
             var(--accent-orange) 50%,
             var(--main-red) 100%);
-    box-shadow: 0 2px 10px rgba(232, 42, 42, 0.7);
+    box-shadow: var(--glow-effect);
+    z-index: 10;
 }
 
-/* Efecto de velocidad manga */
+/* Efecto de velocidad manga mejorado */
 .speed-lines {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    background: repeating-linear-gradient(45deg,
+    background: 
+        repeating-linear-gradient(45deg,
             transparent,
             transparent 20px,
             rgba(232, 42, 42, 0.2) 20px,
-            rgba(232, 42, 42, 0.2) 22px);
-    z-index: 1;
+            rgba(232, 42, 42, 0.2) 22px),
+        repeating-linear-gradient(-45deg,
+            transparent,
+            transparent 25px,
+            rgba(255, 107, 0, 0.15) 25px,
+            rgba(255, 107, 0, 0.15) 27px);
+    z-index: -1;
     pointer-events: none;
-    opacity: 0.3;
+    opacity: 0.4;
+    animation: speedEffect 60s linear infinite;
 }
 
-/* Header */
+@keyframes speedEffect {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 1000px 1000px, -1000px -1000px; }
+}
+
+/* Header mejorado */
 .manga-header {
     text-align: center;
     margin: 30px 0 40px;
     position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
 }
 
 .manga-title {
     font-family: 'Bangers', cursive;
     color: var(--manga-yellow);
-    font-size: 3.5rem;
-    text-shadow: 4px 4px 0 var(--dark-red),
+    font-size: clamp(2.5rem, 6vw, 3.5rem);
+    text-shadow: 
+        4px 4px 0 var(--dark-red),
         6px 6px 0 rgba(0, 0, 0, 0.3);
     letter-spacing: 3px;
     margin-bottom: 10px;
     -webkit-text-stroke: 1px var(--dark-red);
-    transform: rotate(-2deg);
+    transform: rotate(-2deg) translateZ(20px);
+    transition: var(--transition-medium);
+    display: inline-block;
+}
+
+.manga-title:hover {
+    transform: rotate(-1deg) scale(1.02) translateZ(20px);
+    text-shadow: 
+        4px 4px 0 var(--dark-red),
+        6px 6px 0 rgba(0, 0, 0, 0.3),
+        0 0 15px rgba(255, 240, 86, 0.5);
 }
 
 .manga-subtitle {
@@ -105,19 +145,55 @@ a {
     border-radius: 30px;
     box-shadow: 0 3px 0 var(--dark-red);
     margin-top: 10px;
+    transition: var(--transition-medium);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Tarjetas de noticias/boletines */
+.manga-subtitle::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        to bottom right,
+        rgba(255, 255, 255, 0.3) 0%,
+        rgba(255, 255, 255, 0) 60%
+    );
+    transform: rotate(30deg);
+    transition: var(--transition-medium);
+}
+
+.manga-subtitle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 var(--dark-red), var(--glow-effect);
+}
+
+.manga-subtitle:hover::before {
+    animation: shine 1.5s ease infinite;
+}
+
+@keyframes shine {
+    0% { transform: rotate(30deg) translate(-30%, -30%); }
+    100% { transform: rotate(30deg) translate(30%, 30%); }
+}
+
+/* Tarjetas de noticias mejoradas */
 .manga-news-card {
     background: linear-gradient(145deg, rgba(40, 0, 5, 0.9) 0%, rgba(80, 0, 10, 0.7) 100%);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 25px;
     margin-bottom: 30px;
     position: relative;
     overflow: hidden;
     border: 2px solid var(--main-red);
-    box-shadow: 0 8px 20px rgba(160, 16, 16, 0.4),
+    box-shadow: 
+        0 8px 20px rgba(160, 16, 16, 0.4),
         inset 0 0 15px rgba(255, 107, 0, 0.2);
+    transition: var(--transition-medium);
+    backdrop-filter: blur(5px);
 }
 
 .manga-news-card::after {
@@ -129,15 +205,38 @@ a {
     height: 200%;
     background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
     transform: rotate(30deg);
+    opacity: 0;
+    transition: var(--transition-medium);
+}
+
+.manga-news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+        0 12px 25px rgba(160, 16, 16, 0.6),
+        inset 0 0 20px rgba(255, 107, 0, 0.3);
+    border-color: var(--accent-orange);
+}
+
+.manga-news-card:hover::after {
+    opacity: 1;
+    animation: shine 2s ease infinite;
 }
 
 .manga-news-card.featured {
     border: 3px solid var(--manga-yellow);
-    box-shadow: 0 8px 25px rgba(160, 16, 16, 0.6),
+    box-shadow: 
+        0 8px 25px rgba(160, 16, 16, 0.6),
         inset 0 0 20px rgba(255, 240, 86, 0.3);
+    animation: pulse 3s ease infinite;
 }
 
-/* Badges */
+@keyframes pulse {
+    0% { box-shadow: 0 8px 25px rgba(160, 16, 16, 0.6), inset 0 0 20px rgba(255, 240, 86, 0.3); }
+    50% { box-shadow: 0 8px 30px rgba(160, 16, 16, 0.8), inset 0 0 25px rgba(255, 240, 86, 0.4); }
+    100% { box-shadow: 0 8px 25px rgba(160, 16, 16, 0.6), inset 0 0 20px rgba(255, 240, 86, 0.3); }
+}
+
+/* Badges mejorados */
 .news-badge {
     font-family: 'Bangers', cursive;
     display: inline-block;
@@ -149,6 +248,15 @@ a {
     letter-spacing: 1px;
     box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
     transform: rotate(-3deg);
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.news-badge:hover {
+    transform: rotate(-1deg) scale(1.05);
+    box-shadow: 0 5px 0 rgba(0, 0, 0, 0.3), var(--glow-effect);
 }
 
 .new-badge {
@@ -169,19 +277,25 @@ a {
     border: 2px solid var(--main-red);
 }
 
-/* Títulos */
-.news-title {
+/* Títulos mejorados */
+.news-title, .section-title {
     font-family: 'Bangers', cursive;
     color: var(--manga-yellow);
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
     margin: 10px 0 15px;
     letter-spacing: 1px;
     text-shadow: 2px 2px 0 var(--dark-red);
     position: relative;
     display: inline-block;
+    transition: var(--transition-fast);
 }
 
-.news-title::after {
+.news-title:hover, .section-title:hover {
+    color: var(--accent-orange);
+    text-shadow: 2px 2px 0 var(--dark-red), 0 0 10px rgba(255, 107, 0, 0.7);
+}
+
+.news-title::after, .section-title::after {
     content: "";
     position: absolute;
     bottom: -5px;
@@ -189,36 +303,23 @@ a {
     width: 100%;
     height: 3px;
     background: linear-gradient(90deg, var(--main-red), var(--accent-orange));
+    transform-origin: left;
+    transition: var(--transition-medium);
 }
 
-.section-title {
-    font-family: 'Bangers', cursive;
-    color: var(--manga-yellow);
-    font-size: 1.8rem;
-    margin: 20px 0 15px;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 0 var(--dark-red);
-    position: relative;
-    display: inline-block;
+.news-title:hover::after, .section-title:hover::after {
+    transform: scaleX(1.1);
+    background: linear-gradient(90deg, var(--accent-orange), var(--manga-yellow));
 }
 
-.section-title::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--main-red), var(--accent-orange));
-}
-
-/* Contenido */
+/* Contenido mejorado */
 .news-content, .section-content {
     font-size: 1.1rem;
     line-height: 1.7;
     position: relative;
     z-index: 2;
     margin-bottom: 1.5rem;
+    text-align: justify;
 }
 
 .intro-text {
@@ -226,58 +327,99 @@ a {
     margin-bottom: 2rem;
     position: relative;
     z-index: 2;
+    padding: 15px;
+    background: rgba(40, 0, 5, 0.5);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-orange);
 }
 
-/* Efectos de texto */
+/* Efectos de texto mejorados */
 .manga-effects {
     position: absolute;
     font-family: 'Bangers', cursive;
     color: rgba(255, 240, 86, 0.1);
-    font-size: 6rem;
+    font-size: clamp(4rem, 10vw, 6rem);
     z-index: 1;
     pointer-events: none;
+    user-select: none;
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(15deg); }
+    50% { transform: translateY(-20px) rotate(18deg); }
 }
 
 .effect-1 {
     top: 50px;
     right: 30px;
-    transform: rotate(15deg);
+    animation-delay: 0s;
 }
 
 .effect-2 {
     bottom: 20px;
     left: 20px;
-    transform: rotate(-10deg);
+    animation-delay: 0.5s;
+    animation-name: floatReverse;
+}
+
+@keyframes floatReverse {
+    0%, 100% { transform: translateY(0) rotate(-10deg); }
+    50% { transform: translateY(-20px) rotate(-13deg); }
 }
 
 .effect-3 {
     top: 100px;
     left: 40px;
-    transform: rotate(-5deg);
+    animation-delay: 1s;
+    animation-name: floatSmall;
 }
 
-/* Artículo */
+@keyframes floatSmall {
+    0%, 100% { transform: translateY(0) rotate(-5deg) scale(0.8); }
+    50% { transform: translateY(-15px) rotate(-8deg) scale(0.85); }
+}
+
+/* Artículo mejorado */
 .manga-article {
     background: linear-gradient(145deg, rgba(40, 0, 5, 0.9) 0%, rgba(80, 0, 10, 0.7) 100%);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 25px;
     margin-bottom: 30px;
     position: relative;
     overflow: hidden;
     border: 2px solid var(--main-red);
-    box-shadow: 0 8px 20px rgba(160, 16, 16, 0.4),
+    box-shadow: 
+        0 8px 20px rgba(160, 16, 16, 0.4),
         inset 0 0 15px rgba(255, 107, 0, 0.2);
+    backdrop-filter: blur(5px);
+    transition: var(--transition-medium);
+}
+
+.manga-article:hover {
+    transform: translateY(-3px);
+    box-shadow: 
+        0 12px 25px rgba(160, 16, 16, 0.6),
+        inset 0 0 20px rgba(255, 107, 0, 0.3);
 }
 
 .article-meta {
     margin-bottom: 1.5rem;
     font-size: 0.9rem;
     color: var(--accent-orange);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
 }
 
 .meta-item {
-    display: inline-block;
-    margin-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.meta-item i {
+    font-size: 1rem;
 }
 
 .article-section {
@@ -292,6 +434,14 @@ a {
     margin: 1.5rem 0;
     font-style: italic;
     position: relative;
+    border-radius: 0 8px 8px 0;
+    transition: var(--transition-medium);
+}
+
+.manga-quote:hover {
+    background: rgba(160, 16, 16, 0.4);
+    border-left: 4px solid var(--accent-orange);
+    box-shadow: inset 5px 0 10px rgba(160, 16, 16, 0.5);
 }
 
 .manga-quote::before {
@@ -304,13 +454,16 @@ a {
     font-family: serif;
 }
 
-/* Botones */
+/* Botones mejorados */
 .manga-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     padding: 0.7rem 1.5rem;
     border-radius: 30px;
     font-weight: bold;
-    transition: all 0.3s ease;
+    transition: var(--transition-medium);
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -319,6 +472,7 @@ a {
     cursor: pointer;
     position: relative;
     z-index: 2;
+    overflow: hidden;
 }
 
 .manga-button:not(.disabled) {
@@ -327,16 +481,32 @@ a {
     box-shadow: 0 3px 0 var(--dark-red);
 }
 
+.manga-button:not(.disabled)::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition-medium);
+}
+
 .manga-button:not(.disabled):hover {
     background-color: var(--accent-orange);
     transform: translateY(-2px);
-    box-shadow: 0 5px 0 var(--dark-red);
+    box-shadow: 0 5px 0 var(--dark-red), var(--glow-effect);
+}
+
+.manga-button:not(.disabled):hover::before {
+    left: 100%;
 }
 
 .manga-button.disabled {
     background-color: #333;
     color: #666;
     cursor: not-allowed;
+    opacity: 0.7;
 }
 
 .back-button {
@@ -346,18 +516,35 @@ a {
     margin-right: 1rem;
 }
 
+.back-button:hover {
+    background-color: rgba(26, 0, 5, 0.8);
+    border-color: var(--accent-orange);
+}
+
 .share-button {
     background-color: var(--main-red);
     color: white;
 }
 
-/* Footer */
+/* Footer mejorado */
 .manga-footer {
     background: linear-gradient(145deg, rgba(40, 0, 5, 0.9) 0%, rgba(80, 0, 10, 0.7) 100%);
     padding: 2rem;
     text-align: center;
     border-top: 3px solid var(--main-red);
     margin-top: 2rem;
+    position: relative;
+    backdrop-filter: blur(5px);
+}
+
+.manga-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--accent-orange), transparent);
 }
 
 .footer-title {
@@ -367,22 +554,71 @@ a {
     text-shadow: 2px 2px 0 var(--dark-red);
     letter-spacing: 2px;
     margin-bottom: 0.5rem;
+    transition: var(--transition-fast);
+}
+
+.footer-title:hover {
+    color: var(--accent-orange);
+    text-shadow: 2px 2px 0 var(--dark-red), 0 0 10px rgba(255, 107, 0, 0.7);
 }
 
 .footer-title span {
     color: var(--accent-orange);
+    transition: var(--transition-fast);
 }
 
-/* Listas */
+.footer-title:hover span {
+    color: var(--manga-yellow);
+}
+
+/* Listas mejoradas */
 ul {
     margin: 1rem 0 1rem 2rem;
+    list-style-type: none;
 }
 
 li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.5rem;
 }
 
-/* Responsive */
+li::before {
+    content: '•';
+    color: var(--accent-orange);
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+    top: -0.3rem;
+}
+
+/* Cuadrícula de boletines mejorada */
+.boletines-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+/* Scroll personalizado */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--main-red);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-orange);
+}
+
+/* Responsive mejorado */
 @media (max-width: 768px) {
     .manga-container {
         padding: 15px;
@@ -413,38 +649,28 @@ li {
         margin-right: 0;
         margin-bottom: 1rem;
     }
-}
-/* Añade esto al final de tu archivo CSS existente */
-
-/* Estilos para la cuadrícula de boletines */
-.boletines-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-    margin-top: 20px;
-}
-
-/* Efecto hover para las tarjetas */
-.manga-news-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.manga-news-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 25px rgba(160, 16, 16, 0.6),
-        inset 0 0 20px rgba(255, 107, 0, 0.3);
-}
-
-/* Estilos para el botón en hover */
-.manga-button:not(.disabled):hover {
-    background-color: var(--accent-orange);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 0 var(--dark-red);
-}
-
-/* Responsive para la cuadrícula */
-@media (max-width: 768px) {
+    
     .boletines-grid {
         grid-template-columns: 1fr;
     }
+    
+    .article-meta {
+        gap: 1rem;
+    }
 }
+
+/* Animaciones de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.manga-news-card, .manga-article {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Retrasos para animaciones escalonadas */
+.manga-news-card:nth-child(1) { animation-delay: 0.1s; }
+.manga-news-card:nth-child(2) { animation-delay: 0.2s; }
+.manga-news-card:nth-child(3) { animation-delay: 0.3s; }
+.manga-news-card:nth-child(4) { animation-delay: 0.4s; }
